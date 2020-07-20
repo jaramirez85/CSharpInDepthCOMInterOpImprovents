@@ -12,41 +12,35 @@ namespace ConsoleAppChapter4
     {
         static void Main(string[] args)
         {
+            /*
+             * Declaration of behavior of an indexer is to some extent similar to a property. 
+             * similar to the properties, you use get and set accessors for defining an indexer. 
+             * However, properties return or set a specific data member, 
+             * whereas indexers returns or sets a particular value from the object instance
+             */
 
-            /*Application app = new Application { Visible = true };
-            Document doc = app.Documents.Add();
-            Paragraph para = doc.Paragraphs.Add();
-            para.Range.Text = "Simple new code";
+            var demo = new DemoIndexers();
+            demo["1"] = "one";
+            demo["2"] = "two";
 
-            doc.SaveAs2(FileName: "demo2.docx");
-
-            doc.Close();
-            app.Application.Quit();
-
-            Console.ReadKey();*/
-
-
-            //FooWithRefence(30); // Error, should be initialized before calling the method
-            int refValue = 0;
-            FooWithRefence(ref refValue);
-            Console.WriteLine($"refValue: {refValue}");
-
-            int outValue;
-            FooWithOut(out outValue);
-            Console.WriteLine($"outValue: {outValue}");
+            Console.WriteLine(demo["1"]);
+            Console.WriteLine(demo["2"]);
+            //Console.WriteLine(new DemoIndexers() ["123"]);
 
             Console.ReadKey();
 
         }
-        
-        static void FooWithRefence(ref int value)
-        {
-            value = 42;
-        }
 
-        static void FooWithOut(out int value)
+}
+
+    public class DemoIndexers
+    {
+        private Dictionary<string, string> _values = new Dictionary<string, string>();
+
+        public string this[string key]
         {
-            value = 10;
+            get => _values[key];
+            set => _values[key] = value;
         }
     }
 }

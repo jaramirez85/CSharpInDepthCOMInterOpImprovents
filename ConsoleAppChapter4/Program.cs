@@ -13,7 +13,7 @@ namespace ConsoleAppChapter4
         static void Main(string[] args)
         {
 
-            Application app = new Application { Visible = true };
+            /*Application app = new Application { Visible = true };
             Document doc = app.Documents.Add();
             Paragraph para = doc.Paragraphs.Add();
             para.Range.Text = "Simple new code";
@@ -23,8 +23,30 @@ namespace ConsoleAppChapter4
             doc.Close();
             app.Application.Quit();
 
+            Console.ReadKey();*/
+
+
+            //FooWithRefence(30); // Error, should be initialized before calling the method
+            int refValue = 0;
+            FooWithRefence(ref refValue);
+            Console.WriteLine($"refValue: {refValue}");
+
+            int outValue;
+            FooWithOut(out outValue);
+            Console.WriteLine($"outValue: {outValue}");
+
             Console.ReadKey();
 
+        }
+        
+        static void FooWithRefence(ref int value)
+        {
+            value = 42;
+        }
+
+        static void FooWithOut(out int value)
+        {
+            value = 10;
         }
     }
 }

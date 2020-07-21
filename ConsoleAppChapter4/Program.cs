@@ -12,33 +12,46 @@ namespace ConsoleAppChapter4
     {
         static void Main(string[] args)
         {
-            Application app = new Application { Visible = false };
+
+            IEnumerable<string> strings = new List<string> { "a", "b", "c" };
+            IEnumerable<object> objects = strings;
+
+            //Error
+            /*IList<string> strings = new List<string> { "a", "b", "c" };
+            IList<object> objects = strings;
+
+            objects.Add(new object());
+            string element = strings[3];*/
 
 
-            object missing = WdLanguageID.wdEnglishUS; //Type.Missing;
-            SynonymInfo info = app.get_SynonymInfo("method", missing);
-            Console.WriteLine("*** 'method' has {0} meanings", info.MeaningCount);
-
-            foreach(var a in info.MeaningList as Array)
-            {
-                Console.WriteLine(a);
-            }
+           /* Action<object> objectAction = obj => Console.WriteLine(obj);
+            Action<string> stringAction = objectAction;
+            stringAction("Print me");*/
 
 
 
+           /* MyAction<object> objectMyAction = obj => Console.WriteLine(obj);
+            MyAction<string> stringMyAction = objectMyAction;
+            stringMyAction("Print me");
 
-            info = app.SynonymInfo["index", missing];
-            Console.WriteLine("*** 'index' has {0} meanings", info.MeaningCount);
 
-            foreach (var a in info.MeaningList as Array)
-            {
-                Console.WriteLine(a);
-            }
+            MyFunc<string> stringMyFunc = () => "123";
+            MyFunc<object> objectMyFunc = stringMyFunc;
+            object resp = objectMyFunc();
+            Console.WriteLine(resp);*/
 
             Console.ReadKey();
 
         }
 
 }
+
+    public delegate void MyAction<in T>(T obj);
+    public delegate R MyFunc<out R>();
+
+    //Invalid
+    /*public class SimpleEnumerable<T> : IEnumerable<T>
+    {
+    }*/
 
 }
